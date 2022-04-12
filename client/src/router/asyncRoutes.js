@@ -48,6 +48,12 @@ const asyncRoutes = [
           },
         ],
       },
+      {
+        path: "/system",
+        name: "System",
+        title: "系统管理",
+        component: () => import("../views/system/system.vue"),
+      }
     ],
   },
 ];

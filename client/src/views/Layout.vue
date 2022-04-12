@@ -5,7 +5,9 @@
       <el-button type="primary" size="small" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside width="220px"></el-aside>
+      <el-aside width="220px">
+        <Menu></Menu>
+      </el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -14,8 +16,12 @@
 </template>
 
 <script>
+import Menu from "@/components/Menu/Menu";
 export default {
   name: "Layout",
+  components: {
+    Menu,
+  },
   methods: {
     // 退出登录
     logout() {},

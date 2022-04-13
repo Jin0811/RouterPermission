@@ -7,7 +7,7 @@
       router
       :default-active="defaultActive"
     >
-      <template v-for="(item, index) in routerData">
+      <template v-for="(item, index) in menuData">
         <template v-if="item.children && item.children.length > 0">
           <SubMenu :menuItem="item" :key="index"></SubMenu>
         </template>
@@ -22,9 +22,6 @@
 </template>
 
 <script>
-// 菜单配置项，这里是静态的，实际项目当中根据项目情况来
-import routerData from "@/router/asyncRoutes";
-
 import SubMenu from "./SubMenu";
 export default {
   name: "Menu",
@@ -32,15 +29,17 @@ export default {
     SubMenu,
   },
   computed: {
+    // 从store当中获取菜单
+    menuData() {
+      return this.$store.state.asyncRoutes[0].children;
+    },
     // 当前激活的菜单项
     defaultActive() {
       return this.$route.path;
     },
   },
   data() {
-    return {
-      routerData: routerData[0].children,
-    };
+    return {};
   },
 };
 </script>

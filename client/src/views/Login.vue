@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       form: {
-        userName: "user1",
+        userName: "user2",
         password: "123456",
       },
     };
@@ -41,10 +41,9 @@ export default {
     // 登录
     handleLogin() {
       login(this.form).then((res) => {
-        console.log(res);
         if (res && res.token) {
           this.$store.commit("SET_TOKEN", res.token); // 存储token
-          // 跳转路由，在路由钩子当中进行动态路由的添加和生成
+          this.$router.push("/layout"); // 跳转路由，在路由钩子当中进行动态路由的添加和生成
         }
       });
     },

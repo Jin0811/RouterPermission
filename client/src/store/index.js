@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: "",
+    token: "", // token
+    asyncRoutes: [], // 动态路由
   },
   mutations: {
     // 存储token
@@ -17,6 +18,14 @@ export default new Vuex.Store({
     CLEAR_TOKEN(state) {
       state.token = "";
       sessionStorage.removeItem("token");
+    },
+    // 存储动态路由
+    SET_ASYNCROUTES(state, value) {
+      state.asyncRoutes = value;
+    },
+    // 清空动态路由
+    CLEAR_ASYNCROUTES(state) {
+      state.asyncRoutes = [];
     },
   },
   actions: {},

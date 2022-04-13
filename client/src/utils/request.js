@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 添加token
-    let token = sessionStorage.getItem("access_token");
+    let token = sessionStorage.getItem("token");
     if (token) {
       config.headers["token"] = token;
     }

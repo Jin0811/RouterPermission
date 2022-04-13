@@ -30,4 +30,11 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {},
+  getters: {
+    menuData: (state) => {
+      return state.asyncRoutes.length !== 0
+        ? state.asyncRoutes[0].children
+        : "";
+    },
+  },
 });

@@ -31,7 +31,7 @@ export default {
   computed: {
     // 从store当中获取菜单
     menuData() {
-      return this.$store.state.asyncRoutes[0].children;
+      return this.$store.getters.menuData;
     },
     // 当前激活的菜单项
     defaultActive() {

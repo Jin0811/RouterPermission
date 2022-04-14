@@ -12,40 +12,50 @@ const asyncRoutes = [
   {
     path: "/layout",
     name: "Layout",
-    roles: ["teacher", "student"], // 此路由可以被admin、teacher、student访问
+    meta: {
+      roles: ["teacher", "student"], // 此路由可以被admin、teacher、student访问
+    },
     component: () => import("../views/Layout.vue"),
     children: [
       {
         path: "/course",
         name: "Course",
-        title: "课程管理",
-        roles: ["teacher"], // 此路由只能被admin、teacher访问
+        meta: {
+          title: "课程管理",
+          roles: ["teacher"], // 此路由只能被admin、teacher访问
+        },
         component: () => import("../views/RouterContainer.vue"),
         children: [
           {
             path: "/course/publishCourse",
             name: "PublishCourse",
-            title: "发布课程",
-            roles: ["teacher"],
+            meta: {
+              title: "发布课程",
+              roles: ["teacher"],
+            },
             component: () => import("../views/course/publishCourse.vue"),
           },
           // 有的时候，我们需要一个路由，但是并不需要这个路由出现在菜单当中，可以使用 hidden 属性来配置此路由在菜单中隐藏
           {
             path: "/course/courseDetail",
             name: "CourseDetail",
-            title: "课程详情",
-            hidden: true, // 在菜单当中隐藏此路由
             meta: {
+              title: "课程详情",
+              hidden: true, // 在菜单当中隐藏此路由
+              // 此路由在菜单当中被隐藏了，进入该路由，菜单就丢失了高亮效果，可以指定一个路由作为此路由的高亮路由
+              // 一个常见的使用场景就是：列表页和详情页，详情页在菜单当中隐藏，进入详情页，高亮列表页菜单
               activeMenu: "/course/publishCourse",
+              roles: ["teacher"],
             },
-            roles: ["teacher"],
             component: () => import("../views/course/courseDetail.vue"),
           },
           {
             path: "/course/deleteCourse",
             name: "DeleteCourse",
-            title: "删除课程",
-            roles: ["teacher"],
+            meta: {
+              title: "删除课程",
+              roles: ["teacher"],
+            },
             component: () => import("../views/course/deleteCourse.vue"),
           },
         ],
@@ -53,22 +63,28 @@ const asyncRoutes = [
       {
         path: "/student",
         name: "Student",
-        title: "学生管理",
-        roles: ["student"],
+        meta: {
+          title: "学生管理",
+          roles: ["student"],
+        },
         component: () => import("../views/RouterContainer.vue"),
         children: [
           {
             path: "/student/learnCourse",
             name: "LearnCourse",
-            title: "学习课程",
-            roles: ["student"],
+            meta: {
+              title: "学习课程",
+              roles: ["student"],
+            },
             component: () => import("../views/student/learnCourse.vue"),
           },
           {
             path: "/student/signIn",
             name: "SignIn",
-            title: "跑步打卡",
-            roles: ["student"],
+            meta: {
+              title: "跑步打卡",
+              roles: ["student"],
+            },
             component: () => import("../views/student/signIn.vue"),
           },
         ],
@@ -76,7 +92,9 @@ const asyncRoutes = [
       {
         path: "/system",
         name: "System",
-        title: "系统管理",
+        meta: {
+          title: "系统管理",
+        },
         component: () => import("../views/system/system.vue"),
       },
     ],
@@ -84,8 +102,10 @@ const asyncRoutes = [
   {
     path: "*",
     name: "NotFound",
-    title: "404",
-    roles: "all", // all代表此路由可以被全部用户访问
+    meta: {
+      title: "404",
+      roles: "all", // all代表此路由可以被全部用户访问
+    },
     component: () => import("../views/NotFound.vue"),
   },
 ];

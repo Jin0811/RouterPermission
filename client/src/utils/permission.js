@@ -46,10 +46,11 @@ function filterAsyncRoutes(routesTree, currentRole) {
   const res = [];
   routesTree.forEach((item) => {
     const temp = { ...item };
-    temp.roles = temp.roles || [];
-    let hasPermission = temp.roles.includes(currentRole);
+    temp.meta = temp.meta || {};
+    temp.meta.roles = temp.meta.roles || [];
+    let hasPermission = temp.meta.roles.includes(currentRole);
     // 拥有权限 || 角色为admin || 当前路由的role === "all"
-    if (hasPermission || currentRole === "admin" || temp.roles === "all") {
+    if (hasPermission || currentRole === "admin" || temp.meta.roles === "all") {
       if (temp.children) {
         temp.children = filterAsyncRoutes(temp.children, currentRole);
       }

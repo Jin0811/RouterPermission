@@ -35,8 +35,11 @@ export default {
     menuData() {
       return this.$store.getters.menuData;
     },
-    // 当前激活的菜单项
+    // 当前激活的菜单项，如果meta当中activeMenu，则使用activeMenu
     defaultActive() {
+      if (this.$route.meta.activeMenu) {
+        return this.$route.meta.activeMenu;
+      }
       return this.$route.path;
     },
   },

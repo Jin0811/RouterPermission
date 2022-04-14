@@ -35,6 +35,9 @@ const asyncRoutes = [
             name: "CourseDetail",
             title: "课程详情",
             hidden: true, // 在菜单当中隐藏此路由
+            meta: {
+              activeMenu: "/course/publishCourse",
+            },
             roles: ["teacher"],
             component: () => import("../views/course/courseDetail.vue"),
           },

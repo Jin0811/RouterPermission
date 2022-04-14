@@ -1,6 +1,6 @@
 /**
  * 动态路由，需要登录，登录之后拿到当前用户的权限，再进行筛选
- * 
+ *
  * 权限配置规则：
  * 1、admin用户无需配置权限，当 role === "admin" 时，拥有全部权限
  * 2、配置单一角色权限：roles: ["teacher"] 表示当前路由只有角色为teacher时才能访问（虽然admin没有配置，但仍拥有此权限）
@@ -28,6 +28,15 @@ const asyncRoutes = [
             title: "发布课程",
             roles: ["teacher"],
             component: () => import("../views/course/publishCourse.vue"),
+          },
+          // 有的时候，我们需要一个路由，但是并不需要这个路由出现在菜单当中，可以使用 hidden 属性来配置此路由在菜单中隐藏
+          {
+            path: "/course/courseDetail",
+            name: "CourseDetail",
+            title: "课程详情",
+            hidden: true, // 在菜单当中隐藏此路由
+            roles: ["teacher"],
+            component: () => import("../views/course/courseDetail.vue"),
           },
           {
             path: "/course/deleteCourse",

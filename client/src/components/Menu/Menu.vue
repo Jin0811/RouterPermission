@@ -8,10 +8,12 @@
       :default-active="defaultActive"
     >
       <template v-for="(item, index) in menuData">
-        <template v-if="item.children && item.children.length > 0">
+        <template
+          v-if="item.children && item.children.length > 0 && !item.hidden"
+        >
           <SubMenu :menuItem="item" :key="index"></SubMenu>
         </template>
-        <template v-else>
+        <template v-if="!item.children && !item.hidden">
           <el-menu-item :index="item.path" :key="index">
             <span slot="title">{{ item.title }}</span>
           </el-menu-item>

@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       form: {
-        userName: "user2",
+        userName: "user1",
         password: "123456",
       },
     };

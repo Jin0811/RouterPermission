@@ -8,7 +8,8 @@ import { getUserInfo } from "@/api/index.js";
 
 // 路由导航守卫
 router.beforeEach(async (to, from, next) => {
-  let { token, asyncRoutes } = store.state;
+  let { asyncRoutes } = store.state;
+  let token = sessionStorage.getItem("token");
   if (token) {
     // 拥有token，说明已经登录，无需重定向到登录页面
     // 判断是否拥有动态路由
@@ -39,6 +40,7 @@ router.beforeEach(async (to, from, next) => {
  * @returns {Array}
  * @description 根据路由表和角色，生成当前角色所拥有权限的路由，
  * @description role === admin 时拥有全部权限
+ * @description temp.roles === "ALL" 时，表示当前路由，全部角色都可访问
  */
 function filterAsyncRoutes(routesTree, currentRole) {
   const res = [];
@@ -46,7 +48,8 @@ function filterAsyncRoutes(routesTree, currentRole) {
     const temp = { ...item };
     temp.roles = temp.roles || [];
     let hasPermission = temp.roles.includes(currentRole);
-    if (hasPermission || currentRole === "admin") {
+    // 拥有权限 || 角色为admin || 当前路由的role === "all"
+    if (hasPermission || currentRole === "admin" || temp.roles === "all") {
       if (temp.children) {
         temp.children = filterAsyncRoutes(temp.children, currentRole);
       }

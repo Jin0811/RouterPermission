@@ -1,19 +1,25 @@
 /**
  * 动态路由，需要登录，登录之后拿到当前用户的权限，再进行筛选
+ * 
+ * 权限配置规则：
+ * 1、admin用户无需配置权限，当 role === "admin" 时，拥有全部权限
+ * 2、配置单一角色权限：roles: ["teacher"] 表示当前路由只有角色为teacher时才能访问（虽然admin没有配置，但仍拥有此权限）
+ * 3、配置多个角色权限：roles: ["teacher", "student"] 表示teacher、student角色都可以访问此路由（虽然admin没有配置，但仍拥有此权限）
+ * 4、配置全部角色都可以访问的路由（404页面等）：roles: "all"
  */
 
 const asyncRoutes = [
   {
     path: "/layout",
     name: "Layout",
-    roles: ["teacher", "student"],
+    roles: ["teacher", "student"], // 此路由可以被admin、teacher、student访问
     component: () => import("../views/Layout.vue"),
     children: [
       {
         path: "/course",
         name: "Course",
         title: "课程管理",
-        roles: ["teacher"],
+        roles: ["teacher"], // 此路由只能被admin、teacher访问
         component: () => import("../views/RouterContainer.vue"),
         children: [
           {
@@ -62,6 +68,13 @@ const asyncRoutes = [
         component: () => import("../views/system/system.vue"),
       },
     ],
+  },
+  {
+    path: "*",
+    name: "NotFound",
+    title: "404",
+    roles: "all", // all代表此路由可以被全部用户访问
+    component: () => import("../views/NotFound.vue"),
   },
 ];
 

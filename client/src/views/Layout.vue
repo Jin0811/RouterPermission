@@ -24,7 +24,12 @@ export default {
   },
   methods: {
     // 退出登录
-    logout() {},
+    logout() {
+      // 清空token、清空vuex当中的动态路由
+      this.$store.commit("CLEAR_TOKEN");
+      this.$store.commit("CLEAR_ASYNCROUTES");
+      this.$router.replace("/login");
+    },
   },
 };
 </script>

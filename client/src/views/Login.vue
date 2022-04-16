@@ -14,7 +14,7 @@
         </el-form-item>
         <div class="tips">
           <div>user1 -> 管理员admin：拥有全部权限</div>
-          <div>user2 -> 教师teacher：课程管理，发布课程、删除课程</div>
+          <div>user2 -> 教师teacher：课程管理，发布课程、删除课程、课程详情</div>
           <div>user3 -> 学生student：学生管理，学习课程、跑步打卡</div>
         </div>
         <div class="btns">

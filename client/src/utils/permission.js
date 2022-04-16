@@ -12,6 +12,10 @@ router.beforeEach(async (to, from, next) => {
   let token = sessionStorage.getItem("token");
   if (token) {
     // 拥有token，说明已经登录，无需重定向到登录页面
+    // 如果有token，但是去往的是login页面，则不允许跳转
+    if (to.path === "/login") {
+      next({ path: from.path });
+    }
     // 判断是否拥有动态路由
     if (asyncRoutes && asyncRoutes.length > 0) {
       next();
